@@ -33,6 +33,14 @@ Tool status by category (ready / total):
 
 The website reads these numbers from the shared catalogue, so adding a tool updates the storefront automatically. The notch is the one place where the catalogue is deliberately partial: 10 modules are ready and 14 remain roadmap entries.
 
+## New in this build
+
+- **Nookit AI** — persistent chat with image/document analysis, powered by NVIDIA models. Providers: Automatic, Apple Intelligence, Nookit AI.
+- **Hype** — Food, Events and Travel with live data: Swiggy/Zomato menus, District movies and showtimes, Google Flights/Hotels and eRail trains with fares. One-way and round-trip for flights and trains; hotels support "search near my location".
+- **Apps** — real Google Workspace actions after OAuth: Docs, Sheets, Slides, Gmail, Calendar, Meet and Drive.
+- **Travel** — native scraped data (no embedded-browser-only results), train fares, dynamic date fields, train-specific iconography, MakeMyTrip branding removed.
+- **Premium UI** — tab bar aligned with content, sliding active indicator, glassmorphism, staggered entry, hover/press states.
+
 ## Repository layout
 
 ```
