@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleDevelopmentRegion</key>
+  <string>en</string>
+  <key>CFBundleExecutable</key>
+  <string>Nookit</string>
+  <key>CFBundleIdentifier</key>
+  <string>app.nookit.mac</string>
+  <key>CFBundleInfoDictionaryVersion</key>
+  <string>6.0</string>
+  <key>CFBundleName</key>
+  <string>Nookit</string>
+  <key>CFBundleDisplayName</key>
+  <string>Nookit</string>
+  <key>CFBundlePackageType</key>
+  <string>APPL</string>
+  <key>CFBundleShortVersionString</key>
+  <string>0.1.0</string>
+  <key>CFBundleVersion</key>
+  <string>1</string>
+  <key>CFBundleIconFile</key>
+  <string>AppIcon</string>
+  <key>LSMinimumSystemVersion</key>
+  <string>14.0</string>
+  <key>LSApplicationCategoryType</key>
+  <string>public.app-category.productivity</string>
+  <key>NSHighResolutionCapable</key>
+  <true/>
+  <key>NSSupportsAutomaticGraphicsSwitching</key>
+  <true/>
+  <key>NSHumanReadableCopyright</key>
+  <string>© 2026 Nookit. All rights reserved.</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>Nookit records audio when you ask it to, and transcribes on this Mac. Recordings never leave the machine.</string>
+  <key>NSSpeechRecognitionUsageDescription</key>
+  <string>Nookit uses on-device speech recognition to transcribe recordings and dictation. Audio is not uploaded.</string>
+  <key>NSCalendarsUsageDescription</key>
+  <string>Nookit shows your next meeting in the notch. Calendar data stays on this Mac.</string>
+  <key>NSCalendarsFullAccessUsageDescription</key>
+  <string>Nookit shows your next meeting in the notch. Calendar data stays on this Mac.</string>
+  <key>NSCameraUsageDescription</key>
+  <string>Nookit uses the camera only for the Mirror check before a call.</string>
+  <key>NSLocationWhenInUseUsageDescription</key>
+  <string>Nookit uses your location only when you ask Hype for nearby food, events and travel options. The search point is sent to OpenStreetMap and is not stored.</string>
+  <key>NSAppleEventsUsageDescription</key>
+  <string>Nookit controls Music or Spotify playback when you use the notch player.</string>
+  <key>NSDownloadsFolderUsageDescription</key>
+  <string>Nookit saves results to a new dated folder in Downloads. It does not read your other downloads.</string>
+  <key>NSLocalNetworkUsageDescription</key>
+  <string>Nookit connects only to services on your local network that you choose to use.</string>
+  <key>NSAppTransportSecurity</key>
+  <dict>
+    <key>NSAllowsLocalNetworking</key>
+    <true/>
+  </dict>
+  <key>NSDesktopFolderUsageDescription</key>
+  <string>Nookit opens files you choose from the Desktop. It only writes new result files.</string>
+  <key>NSDocumentsFolderUsageDescription</key>
+  <string>Nookit opens files you choose from Documents. It only writes new result files.</string>
+</dict>
+</plist>

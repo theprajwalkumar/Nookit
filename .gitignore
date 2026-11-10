@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+web/node_modules/
+
+# Next.js
+web/.next/
+web/out/
+web/next-env.d.ts
+web/tsconfig.tsbuildinfo
+
+# Native build output
+apps/nookit/build/
+apps/nookit/.build/
+apps/nookit/.swiftpm/
+
+# Local environment
+.env
+.env.local
+.env.*.local
+
+# macOS
+.DS_Store

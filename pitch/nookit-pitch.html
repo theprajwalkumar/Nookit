@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Nookit — Pitch Deck</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0a0b0e;
+    --ink-2: #12141a;
+    --ink-3: #191c24;
+    --paper: #f7f4ed;
+    --paper-2: #efe9dc;
+    --line: #e0d9c9;
+    --ember: #ff5a1f;
+    --ember-deep: #d93a00;
+    --ember-soft: #ffb27a;
+    --mint: #17795a;
+    --mint-soft: #6fe3b6;
+    --slate: #565a63;
+    --slate-2: #8b8f98;
+  }
+  html, body { background: #fff; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  @page { size: 13.3333in 7.5in; margin: 0; }
+  @media print {
+    #overflow-report { display: none !important; }
+    body > .slide:last-of-type { page-break-after: auto; }
+  }
+
+  .slide {
+    width: 13.3333in;
+    height: 7.5in;
+    padding: 54px 64px 46px;
+    position: relative;
+    overflow: hidden;
+    background: var(--paper);
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+  }
+  .slide:last-child { page-break-after: auto; }
+  .slide.dark { background: var(--ink); color: var(--paper); }
+  .slide.dark .lead, .slide.dark .body { color: #b9b6ad; }
+  .slide.dark .kicker { color: var(--ember-soft); }
+  .slide > * { position: relative; z-index: 1; }
+  .glow {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(58% 74% at 88% 4%, rgba(255,90,31,.20), transparent 62%),
+      radial-gradient(42% 60% at 4% 100%, rgba(111,227,182,.07), transparent 70%);
+  }
+
+  .kicker {
+    display: flex; align-items: center; gap: 9px;
+    font-size: 11px; font-weight: 700; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--ember-deep);
+  }
+  .kicker::before {
+    content: ""; width: 18px; height: 2px; background: var(--ember); border-radius: 2px;
+  }
+  h1 {
+    font-size: 76px; line-height: .96; letter-spacing: -.045em; font-weight: 700;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+  }
+  h2 {
+    font-size: 41px; line-height: 1.05; letter-spacing: -.038em; font-weight: 700;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+  }
+  .lead { font-size: 17px; line-height: 1.52; color: var(--slate); max-width: 660px; }
+  .body { font-size: 14.5px; line-height: 1.5; color: var(--slate); }
+  .small { font-size: 12px; line-height: 1.45; color: var(--slate-2); }
+  .ember { color: var(--ember); }
+  .mint { color: var(--mint); }
+
+  .head { display: flex; flex-direction: column; gap: 12px; }
+  .grow { flex: 1; }
+
+  .footer {
+    position: absolute; left: 64px; right: 64px; bottom: 24px; z-index: 2;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 9.5px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+    color: #a6a094;
+  }
+  .slide.dark .footer { color: #5f636c; }
+  .footer b { color: var(--ember); font-weight: 700; }
+
+  .mark { width: 100%; height: 100%; display: block; }
+  .logo-row { display: flex; align-items: center; gap: 14px; }
+  .logo-tile { width: 52px; height: 52px; }
+  .wordmark { font-size: 27px; font-weight: 700; letter-spacing: -.03em; }
+
+  /* ---------- cover ---------- */
+  .cover-top { display: flex; justify-content: space-between; align-items: center; }
+  .cover-meta { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #7e838d; font-weight: 600; }
+  .cover h1 { margin-top: 6px; }
+  .cover .accent { color: var(--ember); }
+  .cover .lead { margin-top: 22px; font-size: 18.5px; max-width: 600px; color: #b9b6ad; }
+  .cover-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+  .cover-bottom .label { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #6b707a; font-weight: 700; }
+  .cover-bottom .value { font-size: 15px; color: var(--paper); font-weight: 600; margin-top: 4px; }
+  .cover-stats { display: flex; gap: 34px; }
+  .cover-stats .n { font-size: 34px; font-weight: 700; letter-spacing: -.03em; }
+  .cover-stats .n span { color: var(--ember); }
+
+  /* ---------- generic cards ---------- */
+  .cards-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .card {
+    background: rgba(255,255,255,.62);
+    border: 1px solid var(--line);
+    border-radius: 15px;
+    padding: 19px 20px;
+  }
+  .slide.dark .card { background: rgba(255,255,255,.045); border-color: rgba(255,255,255,.10); }
+  .card h3 { font-size: 16px; letter-spacing: -.015em; margin-bottom: 6px; font-weight: 700; }
+  .card p { font-size: 13px; line-height: 1.48; color: var(--slate); }
+  .slide.dark .card p { color: #aca9a1; }
+  .num {
+    width: 26px; height: 26px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    background: rgba(255,90,31,.12); color: var(--ember-deep);
+    font-size: 12px; font-weight: 800; margin-bottom: 12px;
+  }
+  .slide.dark .num { background: rgba(255,90,31,.16); color: var(--ember-soft); }
+
+  /* ---------- solution / window mock ---------- */
+  .split { display: grid; grid-template-columns: 0.86fr 1.14fr; gap: 40px; align-items: center; }
+  .ticks { display: flex; flex-direction: column; gap: 13px; }
+  .tick { display: flex; gap: 10px; align-items: flex-start; }
+  .tick .dot {
+    width: 17px; height: 17px; border-radius: 50%; flex: 0 0 17px; margin-top: 1px;
+    background: rgba(23,121,90,.12); color: var(--mint);
+    display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800;
+  }
+  .tick b { font-size: 13.5px; display: block; margin-bottom: 2px; }
+  .tick span { font-size: 12.5px; color: var(--slate); line-height: 1.4; }
+
+  .window {
+    background: #fff; border: 1px solid #d9d2c3; border-radius: 16px; overflow: hidden;
+    box-shadow: 0 26px 60px -24px rgba(10,11,14,.38), 0 2px 0 rgba(255,255,255,.7) inset;
+  }
+  .traffic { height: 34px; display: flex; align-items: center; gap: 6px; padding: 0 14px; background: #f1ece1; border-bottom: 1px solid #e4ddce; }
+  .traffic i { width: 9px; height: 9px; border-radius: 50%; background: #d5cec0; }
+  .traffic i:nth-child(1) { background: #ff5f57; }
+  .traffic i:nth-child(2) { background: #febc2e; }
+  .traffic i:nth-child(3) { background: #28c840; }
+  .win-body { display: grid; grid-template-columns: 150px 1fr; min-height: 318px; }
+  .side { background: #f4efe5; border-right: 1px solid #e6dfd1; padding: 14px 10px; }
+  .side .s-title { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: #9a9487; font-weight: 700; padding: 0 8px 8px; }
+  .side .s-item { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; font-weight: 600; color: #6a655a; padding: 6px 8px; border-radius: 7px; }
+  .side .s-item.on { background: #0a0b0e; color: #f7f4ed; }
+  .side .s-item em { font-style: normal; font-size: 9.5px; color: #a9a294; }
+  .side .s-item.on em { color: #ffb27a; }
+  .main { padding: 16px 18px; }
+  .win-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
+  .win-head b { font-size: 15px; letter-spacing: -.02em; }
+  .win-head span { font-size: 10px; color: #9a9487; }
+  .toolgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+  .tool {
+    border: 1px solid #e8e1d3; border-radius: 10px; padding: 10px 11px; background: #fdfbf6;
+    display: flex; gap: 9px; align-items: flex-start;
+  }
+  .tico { width: 24px; height: 24px; border-radius: 7px; flex: 0 0 24px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: #fff; }
+  .tool b { font-size: 10.5px; display: block; letter-spacing: -.01em; }
+  .tool span { font-size: 8.5px; color: #938c7f; display: block; margin-top: 1px; }
+
+  /* ---------- product grid ---------- */
+  .cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .cat {
+    border: 1px solid var(--line); border-radius: 14px; padding: 15px 16px; background: rgba(255,255,255,.55);
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .cat .count { font-size: 28px; font-weight: 700; letter-spacing: -.04em; line-height: 1; }
+  .cat .count em { font-style: normal; font-size: 11px; color: var(--slate-2); font-weight: 600; letter-spacing: 0; }
+  .cat b { font-size: 13px; letter-spacing: -.01em; margin-top: 3px; }
+  .cat p { font-size: 10.5px; line-height: 1.42; color: var(--slate); }
+  .note {
+    display: flex; align-items: center; gap: 10px; font-size: 11.5px; color: var(--slate);
+    border-top: 1px solid var(--line); padding-top: 12px;
+  }
+  .note b { color: var(--ink); }
+
+  /* ---------- notch ---------- */
+  .notch-split { display: grid; grid-template-columns: .92fr 1.08fr; gap: 42px; align-items: center; }
+  .mods { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 4px; }
+  .chip {
+    font-size: 10.5px; font-weight: 600; padding: 6px 10px; border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.13); color: #c9c5bb; background: rgba(255,255,255,.04);
+  }
+  .chip.live { border-color: rgba(111,227,182,.35); color: var(--mint-soft); background: rgba(111,227,182,.08); }
+  .screen {
+    position: relative; border-radius: 18px; overflow: hidden; border: 1px solid rgba(255,255,255,.12);
+    background: linear-gradient(150deg, #20242e 0%, #101218 100%);
+    aspect-ratio: 16 / 10;
+  }
+  .screen .wall {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(60% 80% at 20% 20%, rgba(255,90,31,.20), transparent 60%),
+      radial-gradient(50% 60% at 90% 90%, rgba(111,227,182,.12), transparent 60%);
+  }
+  .menubar { position: absolute; top: 0; left: 0; right: 0; height: 22px; background: rgba(255,255,255,.08); }
+  .notch {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 132px; height: 25px; background: #000; border-radius: 0 0 13px 13px;
+  }
+  .panel {
+    position: absolute; top: 25px; left: 50%; transform: translateX(-50%);
+    width: 330px; background: rgba(18,20,26,.96); border: 1px solid rgba(255,255,255,.14);
+    border-radius: 0 0 16px 16px; padding: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    box-shadow: 0 30px 50px -20px rgba(0,0,0,.7);
+  }
+  .pmod { display: flex; align-items: center; gap: 8px; padding: 8px; border-radius: 9px; background: rgba(255,255,255,.05); }
+  .pmod i { width: 20px; height: 20px; border-radius: 6px; background: rgba(255,90,31,.18); display: block; flex: 0 0 20px; }
+  .pmod b { font-size: 9.5px; font-weight: 600; color: #dedad1; }
+  .cursor { position: absolute; width: 14px; height: 14px; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-35deg); opacity: .7; }
+
+  /* ---------- pricing ---------- */
+  .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .tier { border: 1px solid var(--line); border-radius: 16px; padding: 18px 18px 16px; background: rgba(255,255,255,.6); position: relative; }
+  .tier.best { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .tier.best .t-note, .tier.best .t-sub { color: #a9a59c; }
+  .tier.best .t-price small { color: #ffb27a; }
+  .t-badge {
+    position: absolute; top: -9px; right: 14px; background: var(--ember); color: #fff;
+    font-size: 8.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+    padding: 4px 8px; border-radius: 999px;
+  }
+  .t-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--slate-2); }
+  .tier.best .t-label { color: var(--ember-soft); }
+  .t-price { font-size: 40px; font-weight: 700; letter-spacing: -.045em; margin: 6px 0 2px; }
+  .t-price small { font-size: 11px; font-weight: 600; letter-spacing: 0; color: var(--slate-2); }
+  .t-sub { font-size: 11px; color: var(--slate); }
+  .t-note { font-size: 10.5px; color: var(--slate-2); margin-top: 8px; }
+
+  /* ---------- comparison ---------- */
+  .cmp { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  .cmp th, .cmp td { padding: 8px 10px; text-align: center; border-bottom: 1px solid var(--line); }
+  .cmp th { font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--slate-2); font-weight: 700; }
+  .cmp td:first-child, .cmp th:first-child { text-align: left; font-weight: 600; color: var(--ink); width: 120px; }
+  .cmp thead th.us { color: var(--ember-deep); }
+  .cmp .us { background: rgba(255,90,31,.07); font-weight: 700; }
+  .cmp tbody tr:last-child td { border-bottom: 0; }
+  .yes { color: var(--mint); font-weight: 800; }
+  .no { color: #b9b2a4; }
+
+  /* ---------- stats ---------- */
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .stat { border: 1px solid var(--line); border-radius: 14px; padding: 15px 16px; background: rgba(255,255,255,.55); }
+  .stat .n { font-size: 30px; font-weight: 700; letter-spacing: -.04em; line-height: 1.1; }
+  .stat .n span { color: var(--ember); }
+  .stat .l { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--slate-2); font-weight: 700; margin-top: 4px; }
+
+  ul.clean { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  ul.clean li { display: flex; gap: 9px; font-size: 13px; line-height: 1.45; color: var(--slate); }
+  ul.clean li::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--ember); margin-top: 7px; flex: 0 0 5px; }
+  ul.clean b { color: var(--ink); }
+
+  .pill-row { display: flex; flex-wrap: wrap; gap: 7px; }
+  .pill { font-size: 10.5px; font-weight: 600; padding: 6px 10px; border-radius: 999px; background: var(--paper-2); border: 1px solid var(--line); color: var(--slate); }
+
+  /* ---------- closing ---------- */
+  .close h1 { font-size: 64px; }
+  .close .lead { font-size: 18px; }
+  .contact { display: flex; gap: 40px; }
+  .contact .label { font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: #6b707a; font-weight: 700; }
+  .contact .value { font-size: 15px; color: var(--paper); font-weight: 600; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<!-- shared mark -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="g-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#20242E"/><stop offset="1" stop-color="#0A0B0E"/>
+    </linearGradient>
+    <linearGradient id="g-ember" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFB27A"/><stop offset=".55" stop-color="#FF5A1F"/><stop offset="1" stop-color="#D93A00"/>
+    </linearGradient>
+    <symbol id="mark" viewBox="0 0 1024 1024">
+      <rect x="64" y="64" width="896" height="896" rx="208" fill="url(#g-bg)"/>
+      <rect x="64" y="64" width="896" height="896" rx="208" fill="none" stroke="#2E3440" stroke-width="8"/>
+      <path d="M352 200h320a48 48 0 0 1 48 48v96c0 26.5-21.5 48-48 48H352a48 48 0 0 1-48-48v-96a48 48 0 0 1 48-48Z" fill="url(#g-ember)"/>
+      <rect x="376" y="264" width="272" height="40" rx="20" fill="#0A0B0E" opacity=".85"/>
+      <path d="M256 560h512M256 656h360M256 752h440" stroke="#F7F5F1" stroke-width="56" stroke-linecap="round" opacity=".92"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- 1 · COVER -->
+<section class="slide dark cover">
+  <div class="glow"></div>
+  <div class="cover-top">
+    <div class="logo-row">
+      <div class="logo-tile"><svg class="mark" viewBox="0 0 1024 1024"><use href="#mark"/></svg></div>
+      <div class="wordmark">Nookit</div>
+    </div>
+    <div class="cover-meta">Pitch deck · November 2026</div>
+  </div>
+
+  <div class="grow"></div>
+
+  <div class="kicker">The Mac toolkit, reunited</div>
+  <h1 style="margin-top:14px">94 Mac tools.<br><span class="accent">One notch away.</span></h1>
+  <p class="lead">A private, all-in-one toolkit for the Mac: 94 local tools and a notch that earns its keep. One payment, no uploads, no subscription.</p>
+
+  <div class="grow"></div>
+
+  <div class="cover-bottom">
+    <div class="cover-stats">
+      <div><div class="n">94<span>/94</span></div><div class="label">Tools shipped</div></div>
+      <div><div class="n">24</div><div class="label">Notch modules</div></div>
+      <div><div class="n">1<span>×</span></div><div class="label">One-time price</div></div>
+    </div>
+    <div>
+      <div class="label">Storefront</div>
+      <div class="value">nookit.app</div>
+    </div>
+  </div>
+  <div class="footer"><span><b>Nookit</b> — private by default</span><span>01</span></div>
+</section>
+
+<!-- 2 · PROBLEM -->
+<section class="slide">
+  <div class="head">
+    <div class="kicker">The problem</div>
+    <h2>Everyday Mac work is death<br>by a thousand apps.</h2>
+  </div>
+  <div class="grow" style="display:flex;flex-direction:column;justify-content:center;gap:18px">
+    <div class="cards-2">
+      <div class="card">
+        <div class="num">01</div>
+        <h3>Fragmentation</h3>
+        <p>Convert an image, compress a PDF, rename a batch, trim a clip: four tasks, four apps, four interfaces, four learning curves.</p>
+      </div>
+      <div class="card">
+        <div class="num">02</div>
+        <h3>Subscription fatigue</h3>
+        <p>Each utility wants $5–$15 a month for a feature used once a week. The bills add up faster than the value does.</p>
+      </div>
+      <div class="card">
+        <div class="num">03</div>
+        <h3>Privacy risk</h3>
+        <p>Free online converters are the default, and they ask users to upload contracts, IDs and client media to someone else's server.</p>
+      </div>
+      <div class="card">
+        <div class="num">04</div>
+        <h3>Dead space</h3>
+        <p>The notch sits unused while windows, menu bar icons and Dock tiles multiply around it.</p>
+      </div>
+    </div>
+    <p class="lead" style="max-width:none;font-size:16px"><b style="color:var(--ink)">Users pay three times</b> — in money, in time, and in trust.</p>
+  </div>
+  <div class="footer"><span>Nookit · The problem</span><span>02</span></div>
+</section>
+
+<!-- 3 · SOLUTION -->
+<section class="slide">
+  <div class="head">
+    <div class="kicker">The solution</div>
+    <h2>One native app. 94 tools.<br>Zero uploads.</h2>
+  </div>
+  <div class="grow" style="display:flex;align-items:center">
+    <div class="split" style="width:100%">
+      <div class="ticks">
+        <div class="tick"><div class="dot">✓</div><div><b>Local by design</b><span>Every tool runs on Apple frameworks — PDFKit, AVFoundation, Core Image, Speech — not on a server.</span></div></div>
+        <div class="tick"><div class="dot">✓</div><div><b>Safe by default</b><span>Results land in dated folders. Originals are never overwritten without confirmation.</span></div></div>
+        <div class="tick"><div class="dot">✓</div><div><b>One catalogue</b><span>A single source of truth drives the app, the storefront, the tool pages and the sitemap.</span></div></div>
+        <div class="tick"><div class="dot">✓</div><div><b>Always one gesture away</b><span>The notch overlay surfaces tools and live modules without breaking focus.</span></div></div>
+      </div>
+      <div class="window">
+        <div class="traffic"><i></i><i></i><i></i></div>
+        <div class="win-body">
+          <div class="side">
+            <div class="s-title">Library</div>
+            <div class="s-item on">All tools <em>94</em></div>
+            <div class="s-item">Video <em>15</em></div>
+            <div class="s-item">Audio <em>5</em></div>
+            <div class="s-item">Images <em>11</em></div>
+            <div class="s-item">Docs <em>22</em></div>
+            <div class="s-item">Text &amp; Speech <em>9</em></div>
+            <div class="s-item">Files <em>4</em></div>
+            <div class="s-item">Mac <em>16</em></div>
+            <div class="s-item">Developer <em>12</em></div>
+          </div>
+          <div class="main">
+            <div class="win-head"><b>All tools</b><span>Ready to use · offline</span></div>
+            <div class="toolgrid">
+              <div class="tool"><div class="tico" style="background:#ff5a1f">J</div><div><b>JSON Formatter</b><span>Pretty-print &amp; validate</span></div></div>
+              <div class="tool"><div class="tico" style="background:#17795a">P</div><div><b>PDF Merge</b><span>Combine documents</span></div></div>
+              <div class="tool"><div class="tico" style="background:#3b6ea5">I</div><div><b>Image Convert</b><span>HEIC, PNG, JPEG, WebP</span></div></div>
+              <div class="tool"><div class="tico" style="background:#8a5cf6">V</div><div><b>Video Trim</b><span>Lossless clips</span></div></div>
+              <div class="tool"><div class="tico" style="background:#c2410c">H</div><div><b>Hash &amp; Checksum</b><span>SHA-256, MD5</span></div></div>
+              <div class="tool"><div class="tico" style="background:#0f766e">Q</div><div><b>QR Code</b><span>Generate &amp; save</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Nookit · The solution</span><span>03</span></div>
+</section>
+
+<!-- 4 · PRODUCT -->
+<section class="slide">
+  <div class="head">
+    <div class="kicker">The product</div>
+    <h2>Ninety-four finished tools,<br>not ninety-four placeholders.</h2>
+  </div>
+  <div class="grow" style="display:flex;flex-direction:column;justify-content:center;gap:14px;margin-top:10px">
+    <div class="cat-grid">
+      <div class="cat"><div class="count">15<em> tools</em></div><b>Video</b><p>Convert, trim, mute, extract audio, inspect media.</p></div>
+      <div class="cat"><div class="count">5<em> tools</em></div><b>Audio</b><p>Record, convert, inspect and normalise.</p></div>
+      <div class="cat"><div class="count">11<em> tools</em></div><b>Images</b><p>Convert, resize, compress, rotate, strip metadata.</p></div>
+      <div class="cat"><div class="count">22<em> tools</em></div><b>Docs</b><p>Merge, split, compress, PDF to images and back.</p></div>
+      <div class="cat"><div class="count">9<em> tools</em></div><b>Text &amp; Speech</b><p>Count, convert case, extract, speak, transcribe.</p></div>
+      <div class="cat"><div class="count">4<em> tools</em></div><b>Files</b><p>QR codes, batch rename, zip and unzip.</p></div>
+      <div class="cat"><div class="count">16<em> tools</em></div><b>Mac</b><p>Keep awake, eject disks, battery, storage, speed test.</p></div>
+      <div class="cat"><div class="count">12<em> tools</em></div><b>Developer</b><p>JSON, Base64, hashes, JWT, timestamps, diffs, regex.</p></div>
+    </div>
+    <div class="note"><b>94 of 94 tools have real screens.</b> Add one entry to the catalogue and the app, site, tool pages and sitemap update together.</div>
+  </div>
+  <div class="footer"><span>Nookit · Product</span><span>04</span></div>
+</section>
+
+<!-- 5 · NOTCH -->
+<section class="slide dark">
+  <div class="glow"></div>
+  <div class="head">
+    <div class="kicker">The notch</div>
+    <h2>The dead space at the top<br>becomes the fastest surface.</h2>
+  </div>
+  <div class="grow" style="display:flex;align-items:center">
+    <div class="notch-split" style="width:100%">
+      <div>
+        <p class="lead" style="font-size:14.5px;max-width:none">The notch is a non-activating panel: it opens over whatever you are doing and stays out of screen recordings. Ten modules are live; fourteen more are on the roadmap.</p>
+        <div class="mods">
+          <span class="chip live">AI Chat</span><span class="chip live">Clipboard</span><span class="chip live">Notes</span>
+          <span class="chip live">Tasks</span><span class="chip live">Timers</span><span class="chip live">Calendar</span>
+          <span class="chip live">Music</span><span class="chip live">Hydration</span><span class="chip live">Breathe</span>
+          <span class="chip live">Habits</span><span class="chip">Dictation</span><span class="chip">Rewrite</span>
+          <span class="chip">Snippets</span><span class="chip">Shelf</span><span class="chip">Teleprompter</span>
+          <span class="chip">Revenue</span><span class="chip">Analytics</span>
+        </div>
+        <p class="small" style="margin-top:14px;color:#7f848e">Private AI runs on Apple Intelligence, or any local Ollama / OpenAI-compatible server. Prompts never leave the Mac or local network.</p>
+      </div>
+      <div class="screen">
+        <div class="wall"></div>
+        <div class="menubar"></div>
+        <div class="notch"></div>
+        <div class="panel">
+          <div class="pmod"><i></i><b>AI Chat</b></div>
+          <div class="pmod"><i></i><b>Clipboard</b></div>
+          <div class="pmod"><i></i><b>Notes</b></div>
+          <div class="pmod"><i></i><b>Tasks</b></div>
+          <div class="pmod"><i></i><b>Timer</b></div>
+          <div class="pmod"><i></i><b>Calendar</b></div>
+          <div class="pmod"><i></i><b>Music</b></div>
+          <div class="pmod"><i></i><b>Habits</b></div>
+        </div>
+        <div class="cursor" style="left:64%;top:58%"></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Nookit · The notch</span><span>05</span></div>
+</section>
+
+<!-- 6 · WHY NOW -->
+<section class="slide">
+  <div class="head">
+    <div class="kicker">Why now</div>
+    <h2>Four shifts make this<br>the right moment.</h2>
+  </div>
+  <div class="grow" style="display:flex;align-items:center">
+    <div class="cards-2" style="width:100%">
+      <div class="card"><div class="num">01</div><h3>On-device AI is useful</h3><p>Apple Intelligence and local models made private assistance practical. Nookit can offer AI without shipping prompts to a vendor.</p></div>
+      <div class="card"><div class="num">02</div><h3>Subscriptions are unpopular</h3><p>Users actively look for one-time alternatives to the monthly bundle. “Buy it once” is a feature again.</p></div>
+      <div class="card"><div class="num">03</div><h3>Privacy is a buying criterion</h3><p>Uploading client files to a free converter is no longer acceptable in studios, clinics, legal and finance work.</p></div>
+      <div class="card"><div class="num">04</div><h3>Apple silicon is fast enough</h3><p>Media encoding, PDF rendering and image work that once needed a server now finish on the laptop, instantly.</p></div>
+    </div>
+  </div>
+  <div class="footer"><span>Nookit · Why now</span><span>06</span></div>
+</section>
+
+<!-- 7 · CUSTOMER -->
+<section class="slide">
+  <div class="head">
+    <div class="kicker">The customer</div>
+    <h2>People whose job is<br>handling other people's files.</h2>
+  </div>
+  <div class="grow" style="display:flex;align-items:center">
+    <div style="display:grid;grid-template-columns:1.05fr .95fr;gap:42px;width:100%">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="card" style="background:var(--ink);border-color:var(--ink);color:var(--paper)">
+          <div class="num" style="background:rgba(255,90,31,.2);color:var(--ember-soft)">01</div>
+          <h3 style="color:var(--paper)">Primary: the Mac power user</h3>
+          <p style="color:#b3afa6">Freelancers, designers, developers, consultants and students who use a MacBook as their main machine and touch media, PDFs and files every day. They already pay for four to seven single-purpose apps and resent it.</p>
+        </div>
+        <div class="card">
+          <div class="num">02</div>
+          <h3>Secondary: small teams and education</h3>
+          <p>Studios, agencies, clinics and schools of 2–20 people that want a standard local utility set without per-seat SaaS billing or a data-processing agreement.</p>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="label" style="font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate-2);font-weight:700">Where they already are</div>
+        <ul class="clean">
+          <li><b>Mac communities</b> — Reddit, MacRumors, Hacker News, designer and developer Slacks.</li>
+          <li><b>Productivity newsletters</b> — the same channels that sell one-time Mac utilities today.</li>
+          <li><b>Search</b> — 94 tool pages that answer “how do I merge a PDF on Mac” without an upload.</li>
+          <li><b>Creator reviews</b> — Mac YouTube and podcast coverage of indie utilities.</li>
+        </ul>
+        <div style="border-top:1px solid var(--line);padding-top:12px;margin-top:2px">
+          <p class="body" style="font-size:13px"><b style="color:var(--ink)">The wedge:</b> one person can replace four apps and one subscription in a single $29 purchase.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Nookit · Customer</span><span>07</span></div>
+</section>
+
+<!-- 8 · BUSINESS MODEL -->
+<section class="slide">
+  <div class="head">
+    <div class="kicker">Business model</div>
+    <h2>Buy it once. Use it for years.</h2>
+    <p class="lead" style="font-size:15px">Perpetual licences, sized by how many Macs a person owns. Every tier unlocks all 94 tools and every notch module as it lands.</p>
+  </div>
+  <div class="grow" style="display:flex;flex-direction:column;justify-content:center;gap:16px">
+    <div class="tiers">
+      <div class="tier">
+        <div class="t-label">1 Mac</div>
+        <div class="t-price">$19 <small>once</small></div>
+        <div class="t-sub">The everyday licence.</div>
+        <div class="t-note">List $49.99</div>
+      </div>
+      <div class="tier best">
+        <div class="t-badge">Most popular</div>
+        <div class="t-label">3 Macs</div>
+        <div class="t-price">$29 <small>once</small></div>
+        <div class="t-sub">Laptop, desktop and the spare.</div>
+        <div class="t-note">List $79.99</div>
+      </div>
+      <div class="tier">
+        <div class="t-label">5 Macs</div>
+        <div class="t-price">$39 <small>once</small></div>
+        <div class="t-sub">The whole household.</div>
+        <div class="t-note">List $119.99</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1.15fr .85fr;gap:22px;border-top:1px solid var(--line);padding-top:15px">
+      <ul class="clean" style="gap:6px">
+        <li><b>Lifetime updates</b> included with every licence.</li>
+        <li><b>Offline after activation</b> — no per-user server cost.</li>
+        <li><b>14-day refund</b>, no interrogation and no lock-in.</li>
+        <li><b>Team licences</b> quoted by email; education bundles planned.</li>
+      </ul>
+      <div>
+        <div class="label" style="font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate-2);font-weight:700;margin-bottom:7px">Future levers</div>
+        <div class="pill-row">
+          <span class="pill">Paid major upgrades</span><span class="pill">Volume licences</span>
+          <span class="pill">Regional pricing</span><span class="pill">Education bundles</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Nookit · Business model</span><span>08</span></div>
+</section>
+
+<!-- 9 · COMPETITION -->
+<section class="slide">
+  <div class="head">
+    <div class="kicker">Competition</div>
+    <h2>Everyone solves a slice.<br>Nobody owns the whole job.</h2>
+  </div>
+  <div class="grow" style="display:flex;align-items:center;margin-top:6px">
+    <table class="cmp">
+      <thead>
+        <tr>
+          <th></th><th class="us">Nookit</th><th>Setapp</th><th>Raycast / Alfred</th><th>Notch apps</th><th>Single-purpose apps</th><th>Online converters</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Price model</td><td class="us">One-time $19–39</td><td>Monthly bundle</td><td>Free + subscription</td><td>One-time or sub</td><td>Paid per app</td><td>Free / ads</td></tr>
+        <tr><td>Scope</td><td class="us">94 tools + 24 modules</td><td>250+ separate apps</td><td>Commands &amp; extensions</td><td>5–10 features</td><td>One job each</td><td>One format each</td></tr>
+        <tr><td>Local &amp; private</td><td class="us"><span class="yes">Yes</span></td><td>Mixed</td><td><span class="yes">Yes</span></td><td><span class="yes">Yes</span></td><td><span class="yes">Yes</span></td><td class="no">No — uploads</td></tr>
+        <tr><td>Notch surface</td><td class="us"><span class="yes">Yes</span></td><td class="no">No</td><td class="no">No</td><td><span class="yes">Yes</span></td><td class="no">No</td><td class="no">No</td></tr>
+        <tr><td>One interface</td><td class="us"><span class="yes">Yes</span></td><td class="no">No</td><td>Partly</td><td><span class="yes">Yes</span></td><td class="no">No</td><td class="no">No</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="body" style="font-size:12.5px;margin-top:4px"><b style="color:var(--ink)">The difference is the combination:</b> native breadth, local processing, one payment, and a notch that makes it reachable — a bundle in price, a single product in experience.</p>
+  <div class="footer"><span>Nookit · Competition</span><span>09</span></div>
+</section>
+
+<!-- 10 · GO TO MARKET -->
+<section class="slide">
+  <div class="head">
+    <div class="kicker">Go to market</div>
+    <h2>Start where Macs are,<br>then follow the language.</h2>
+  </div>
+  <div class="grow" style="display:flex;align-items:center">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:38px;width:100%">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="card" style="padding:14px 16px"><h3 style="font-size:14px">Primary · United States</h3><p>Largest Mac installed base, highest willingness to pay for one-time utilities, strongest newsletter and creator reach.</p></div>
+        <div class="card" style="padding:14px 16px"><h3 style="font-size:14px">Secondary · UK, Canada, Australia</h3><p>English-speaking Mac markets where the storefront, USD pricing and support already work without translation.</p></div>
+        <div class="card" style="padding:14px 16px"><h3 style="font-size:14px">Third wave · Western Europe + Japan</h3><p>Strong Mac share and paid-software culture; needs localised pricing and checkout, not a translated app.</p></div>
+        <div class="card" style="padding:14px 16px"><h3 style="font-size:14px">Long term · India</h3><p>Price-sensitive but strong developer and student audiences: purchasing-power pricing and an education licence lead here.</p></div>
+      </div>
+      <div>
+        <div class="label" style="font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate-2);font-weight:700;margin-bottom:9px">Channels already built</div>
+        <ul class="clean">
+          <li><b>108 prerendered routes</b>, including 94 tool pages, already indexed and answer-first.</li>
+          <li><b>Search intent</b> — “merge PDF on Mac”, “HEIC to PNG”, “JWT decoder” with no upload step.</li>
+          <li><b>Mac communities and newsletters</b> — launch where one-time utility buyers already gather.</li>
+          <li><b>Creator reviews</b> — hands-on Mac YouTube and podcasts.</li>
+          <li><b>Education and team outreach</b> — direct licences for studios and schools.</li>
+        </ul>
+        <div style="margin-top:14px;padding:12px 14px;border-radius:12px;background:var(--paper-2);border:1px solid var(--line)">
+          <p class="small" style="color:var(--slate);font-size:11.5px"><b style="color:var(--ink)">The storefront is the distribution asset.</b> The catalogue already generates the pages, metadata and sitemap; new tools create new acquisition surfaces at zero marginal cost.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>Nookit · Go to market</span><span>10</span></div>
+</section>
+
+<!-- 11 · TRACTION & ROADMAP -->
+<section class="slide">
+  <div class="head">
+    <div class="kicker">Status</div>
+    <h2>Built, honest, and close<br>to the launch line.</h2>
+  </div>
+  <div class="grow" style="display:flex;flex-direction:column;justify-content:center;gap:18px">
+    <div class="stat-row">
+      <div class="stat"><div class="n">94<span>/94</span></div><div class="l">Tools with real screens</div></div>
+      <div class="stat"><div class="n">10<span>/24</span></div><div class="l">Notch modules live</div></div>
+      <div class="stat"><div class="n">108</div><div class="l">Prerendered routes</div></div>
+      <div class="stat"><div class="n">1<span>×</span></div><div class="l">Payment, lifetime updates</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+      <div>
+        <div class="label" style="font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);font-weight:700;margin-bottom:8px">Shipped</div>
+        <ul class="clean" style="gap:5px">
+          <li>Native SwiftUI app compiles and launches; all 94 tools registered and renderable.</li>
+          <li>Storefront built with catalogue-driven pricing, tool pages and legal pages.</li>
+          <li>Single catalogue generates app, site and metadata in one build step.</li>
+          <li>Checkout is env-driven, with an email fallback when unset.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="label" style="font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ember-deep);font-weight:700;margin-bottom:8px">Next</div>
+        <ul class="clean" style="gap:5px">
+          <li>Finish the remaining 14 notch modules.</li>
+          <li>Licence activation and update backend.</li>
+          <li>Developer ID signing, notarization, DMG hosting.</li>
+          <li>Public launch and first paying cohort.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="small" style="font-size:11px;border-top:1px solid var(--line);padding-top:10px">Pre-revenue. The product and storefront are built; licensing, notarization and distribution are the remaining launch blockers. No customer or revenue claims are made here.</p>
+  </div>
+  <div class="footer"><span>Nookit · Status</span><span>11</span></div>
+</section>
+
+<!-- 12 · CLOSING -->
+<section class="slide dark close">
+  <div class="glow"></div>
+  <div class="cover-top">
+    <div class="logo-row">
+      <div class="logo-tile"><svg class="mark" viewBox="0 0 1024 1024"><use href="#mark"/></svg></div>
+      <div class="wordmark">Nookit</div>
+    </div>
+    <div class="cover-meta">nookit.app</div>
+  </div>
+  <div class="grow"></div>
+  <div class="kicker">The ask</div>
+  <h1 style="margin-top:12px">Put 94 tools<br><span style="color:var(--ember)">one notch away.</span></h1>
+  <p class="lead">We are looking for early users, distribution partners, and the capital to finish licensing, notarization and the public launch.</p>
+  <div class="grow"></div>
+  <div class="contact">
+    <div><div class="label">Website</div><div class="value">nookit.app</div></div>
+    <div><div class="label">Support</div><div class="value">support@nookit.app</div></div>
+    <div><div class="label">Deck</div><div class="value">November 2026</div></div>
+  </div>
+  <div class="footer"><span><b>Nookit</b> — 94 Mac tools. One notch away.</span><span>12</span></div>
+</section>
+
+<script>
+  // Report any element whose content overflows its box; printed into the DOM for CI checks.
+  window.addEventListener('load', () => {
+    const out = [];
+    document.querySelectorAll('.slide').forEach((slide, i) => {
+      if (slide.scrollHeight > slide.clientHeight + 2) out.push(`slide ${i + 1} overflow-y ${slide.scrollHeight} > ${slide.clientHeight}`);
+      if (slide.scrollWidth > slide.clientWidth + 2) out.push(`slide ${i + 1} overflow-x ${slide.scrollWidth} > ${slide.clientWidth}`);
+      slide.querySelectorAll('*').forEach((el) => {
+        if (el.scrollHeight > el.clientHeight + 4 && getComputedStyle(el).overflow === 'visible' && el.clientHeight > 0) {
+          const r = el.getBoundingClientRect();
+          if (r.bottom > slide.getBoundingClientRect().bottom + 1 || r.top < slide.getBoundingClientRect().top - 1) {
+            out.push(`slide ${i + 1} clipped <${el.tagName.toLowerCase()}> ${el.textContent.trim().slice(0, 40)}`);
+          }
+        }
+      });
+    });
+    document.querySelectorAll('.slide').forEach((slide, i) => {
+      const sr = slide.getBoundingClientRect();
+      const footer = slide.querySelector('.footer');
+      const ft = footer ? footer.getBoundingClientRect().top : sr.bottom;
+      let maxBottom = sr.top;
+      slide.querySelectorAll(':scope > *:not(.footer):not(.glow)').forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.height > 0) maxBottom = Math.max(maxBottom, r.bottom);
+      });
+      out.push(`slide ${i + 1}: h=${Math.round(sr.height)} contentBottom=${Math.round(maxBottom - sr.top)} footerTop=${Math.round(ft - sr.top)} gap=${Math.round(ft - maxBottom)}`);
+    });
+    document.querySelectorAll('.slide').forEach((slide, i) => {
+      slide.querySelectorAll('*').forEach((el) => {
+        const cs = getComputedStyle(el);
+        const tag = el.tagName.toLowerCase();
+        if (['svg', 'path', 'rect', 'use', 'i', 'em', 'b', 'span', 'br'].includes(tag)) return;
+        if (el.clientWidth > 0 && el.scrollWidth > el.clientWidth + 2) {
+          out.push(`slide ${i + 1} H-OVERFLOW <${tag}> +${el.scrollWidth - el.clientWidth}px :: ${el.textContent.trim().replace(/\s+/g, ' ').slice(0, 38)}`);
+        }
+        if (el.clientHeight > 0 && el.scrollHeight > el.clientHeight + 2 && (cs.overflow !== 'visible' || cs.overflowY !== 'visible')) {
+          out.push(`slide ${i + 1} V-CLIP <${tag}> +${el.scrollHeight - el.clientHeight}px :: ${el.textContent.trim().replace(/\s+/g, ' ').slice(0, 38)}`);
+        }
+      });
+    });
+    const pre = document.createElement('pre');
+    pre.id = 'overflow-report';
+    pre.textContent = out.join('\n');
+    document.body.appendChild(pre);
+  });
+</script>
+</body>
+</html>
