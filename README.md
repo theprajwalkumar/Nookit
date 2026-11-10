@@ -6,6 +6,41 @@ Nookit is an original, all-in-one macOS toolkit: a native SwiftUI app with 94 wo
 
 This repository contains the storefront and a working native prototype. It does not contain any code, copy, screenshots or branding from other Mac utility products.
 
+<img width="1470" height="956" alt="Screenshot 2026-11-10 at 1 02 30 PM" src="https://github.com/user-attachments/assets/c935c136-4561-417b-9547-2a4469172260" />
+
+
+<img width="1470" height="956" alt="Screenshot 2026-11-10 at 1 02 42 PM" src="https://github.com/user-attachments/assets/f86624b5-9406-45c0-badf-77596ccd2d65" />
+
+
+<img width="1470" height="956" alt="Screenshot 2026-11-10 at 1 02 48 PM" src="https://github.com/user-attachments/assets/96510506-c78d-4bb2-9377-75bae8c614a1" />
+
+
+<img width="1470" height="956" alt="Screenshot 2026-11-10 at 1 02 56 PM" src="https://github.com/user-attachments/assets/760fa5bf-97bf-4ebf-9185-d26dcb10992a" />
+
+
+<img width="1470" height="956" alt="Screenshot 2026-11-10 at 1 03 40 PM" src="https://github.com/user-attachments/assets/5e91a785-396c-4541-bd6e-8e948962448a" />
+
+
+<img width="1470" height="956" alt="Screenshot 2026-11-10 at 1 03 57 PM" src="https://github.com/user-attachments/assets/0f7e01e8-802a-4716-936c-791f2b92a737" />
+
+
+<img width="1470" height="956" alt="Screenshot 2026-11-10 at 1 04 20 PM" src="https://github.com/user-attachments/assets/540ac6ed-0876-4279-afd6-491644d3bff5" />
+
+
+
+<img width="1470" height="956" alt="Screenshot 2026-11-10 at 1 05 00 PM" src="https://github.com/user-attachments/assets/4270ac77-7a50-4444-a9ae-adcd25e0d700" />
+
+
+
+
+
+
+
+
+
+
+
+
 ## Status at a glance
 
 | Area | State |
